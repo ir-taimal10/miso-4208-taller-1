@@ -16,6 +16,7 @@ var dataCacheName = 'weatherData-v1';
 var cacheName = 'weatherPWA-final-1';
 var filesToCache = [
     '/',
+    '/index.html',
     '/css/bootstrap.css',
     '/css/bootstrap-cosmo.css',
     '/css/bootstrap-responsive.css',
@@ -24,13 +25,14 @@ var filesToCache = [
     '/img/ratp/logo-rer.png',
     '/img/ratp/logo-rer-a.png',
     '/img/ratp/logo-rer-b.png',
+    '/img/ratp/logo-rer-B.png',
     '/css?family=Open+Sans:400italic,700italic,400,700',
     '/css/main.css',
     '/js/main.js',
     '/js/underscore.min.js',
     '/js/jquery-1.9.1.min.js',
-    'https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js',
-    '',
+    '/js/bootstrap.min.js',
+    '/js/pouchDB.js'
 ];
 
 
@@ -75,7 +77,7 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
     console.log('[Service Worker] Fetch', e.request.url);
-    var dataUrl = 'https://query.yahooapis.com/v1/public/yql';
+    var dataUrl = 'https://api-ratp.pierre-grimaud.fr/v3';
     if (e.request.url.indexOf(dataUrl) > -1) {
         /*
          * When the request URL contains dataUrl, the app is asking for fresh

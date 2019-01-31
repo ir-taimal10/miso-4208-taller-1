@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TODO add manifest here -->
     <link rel="manifest" href="/manifest.json">
@@ -13,6 +12,8 @@
     <meta name="apple-mobile-web-app-title" content="Weather PWA">
     <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#2Fdada">
+    <meta name="theme-color" content="#db5945">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Proto RATP API</title>
     <link href="css/bootstrap-cosmo.css" rel="stylesheet"/>
@@ -25,7 +26,16 @@
 </head>
 <body>
 <div id="options_wrapper"></div>
-<div id="content"></div>
+<div id="content">
+    <div class="fakeloader">
+        <div class="fl spinner1">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <br/>
+        <noscript>Your browser does not support JavaScript!</noscript>
+    </div>
+</div>
 <script type="text/x-template" id="page-template">
     <table class="table">
         <tbody>
@@ -67,7 +77,7 @@
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/underscore.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js"></script>
+<script src="js/pouchDB.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
