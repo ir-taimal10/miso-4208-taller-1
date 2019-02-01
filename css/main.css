@@ -509,7 +509,7 @@ html, body {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     html, body {
         padding: 0;
         margin: 0;
@@ -519,6 +519,7 @@ html, body {
 
     .tr-header .td1 p {
         font-size: 14px;
+        padding-left: 12px;
     }
 
     .td2-header {
@@ -532,6 +533,10 @@ html, body {
     .rer-ligne {
         height: 40px;
         margin-top:16px;
+    }
+    .tr-normal .td3 p,
+    .tr-normal .td1 p, .tr-normal .td2 p{
+        font-size: 14px;
     }
 
 }
