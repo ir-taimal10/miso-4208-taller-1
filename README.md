@@ -6,6 +6,9 @@
 ![Screenshot écran ratp](img/auditoria.PNG)
 
 
+![Screenshot écran ratp](img/auditoria_pwa.PNG)
+
+
 [Demo on firebase](https://miso-42-08-taller-1.firebaseapp.com)
  
 
