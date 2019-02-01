@@ -25,7 +25,6 @@ var filesToCache = [
     '/img/ratp/logo-rer.png',
     '/img/ratp/logo-rer-a.png',
     '/img/ratp/logo-rer-b.png',
-    '/img/ratp/logo-rer-B.png',
     '/css?family=Open+Sans:400italic,700italic,400,700',
     '/css/main.css',
     '/js/main.js',
