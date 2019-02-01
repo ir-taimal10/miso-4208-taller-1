@@ -1,6 +1,10 @@
 # Écran RATP
 
-![Screenshot écran ratp](http://i.imgur.com/m9wJIzph.png)
+
+
+
+![Screenshot écran ratp](img/auditoria.PNG)
+
 
 ![Demo on firebase](https://miso-42-08-taller-1.firebaseapp.com)
  
