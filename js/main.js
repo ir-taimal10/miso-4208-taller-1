@@ -144,6 +144,7 @@
                     result.created = response._metadata.date;
                     result.schedules = response.result.schedules;
                     app.updateTimetableCard(result);
+                    window.APILoadTime = performance.now();
                 }
             } else {
                 // Return the initial weather forecast since no data is available.
