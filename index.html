@@ -1,83 +1,93 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+    <title>Proto RATP API</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- TODO add manifest here -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="manifest" href="/manifest.json">
-    <!-- Add to home screen for Safari on iOS -->
+    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Weather PWA">
-    <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png">
+    <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#2Fdada">
-    <meta name="theme-color" content="#db5945">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Proto RATP API</title>
-    <link href="css/bootstrap-cosmo.css" rel="stylesheet"/>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet"/>
-    <link href="css/fix.css" rel="stylesheet"/>
-    <link href="css/main.css" rel="stylesheet"/>
-
-
-
+    <meta name="theme-color" content="#F8D247"/>
 </head>
-<body>
-<div id="options_wrapper"></div>
-<div id="content">
-    <div class="fakeloader">
-        <div class="fl spinner1">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
-        <br/>
-        <noscript>Your browser does not support JavaScript!</noscript>
-    </div>
-</div>
-<script type="text/x-template" id="page-template">
-    <table class="table">
-        <tbody>
-        <tr class="tr-header">
-            <td class="td1">
-                <img src="img/ratp/logo-<%= type %>.png" alt="" class="rer-logo"/>
-                <img src="img/ratp/logo-<%= type %>-<%= line %>.png" alt="" class="rer-ligne"/>
-                <p>Station: <%= station %></p>
-                <p>Direction: <%= destination %></p>
-            </td>
-            <td colspan="2" class="td2-header"><p><%= current_time %></p></td>
-        </tr>
-        <% _.map(horaires, function (horaire, i) { %>
-        <tr class="<% if(i%2) { %>bg-tr <% } %>tr-normal">
-            <td class="td1"><p><%= horaire.destination %></p></td>
-            <td class="td2"><p><%= horaire.code %></p></td>
-            <td class="td3"><p><%= horaire.message %></p></td>
-        </tr>
-        <% }) %>
 
-        <tr class="tr-trafic">
-            <td class="tdfull" colspan="3"><p><i><%= traffic %></i></p></td>
-        </tr>
-        </tbody>
-    </table>
-</script>
-<script type="text/x-template" id="options_template">
-    <div class="options-container">
-        <label for="selectStationToAdd" class="options-title">Show new station</label>
-        <div class="options-body">
-            <select id="selectStationToAdd">
-                <% _.map(stations, function (station, i) { %>
-                <option value="<%= station.slug %>"><%= station.name %></option>
-                <% }) %>
+<body>
+
+<header class="header">
+    <h1 class="header__title">Proto RATP API</h1>
+    <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+    <button id="butAdd" class="headerButton" aria-label="Add">
+        Add Station
+    </button>
+</header>
+
+<main class="main">
+
+    <div class="card cardTemplate" hidden>
+        <div class="line-key" hidden></div>
+        <div class="card-last-updated" hidden></div>
+        <div class="label"></div>
+        <div class="subtitle"></div>
+        <div class="schedule">
+            <div class="message"></div>
+        </div>
+        <div class="schedule">
+            <div class="message"></div>
+        </div>
+        <div class="schedule">
+            <div class="message"></div>
+        </div>
+        <div class="schedule">
+            <div class="message"></div>
+        </div>
+    </div>
+
+</main>
+
+<div class="dialog-container">
+    <div class="dialog">
+        <div class="dialog-title">Add new timetable</div>
+        <div class="dialog-body">
+            <select id="selectTimetableToAdd">
+                <!-- Values map to Yahoo Weather API Where On Earth Identifiers (WOEIDs).
+                     https://developer.yahoo.com/weather/documentation.html#req -->
+                <option value="metros/1/nation/A">Nation, Direction La Défense</option>
+                <option value="metros/1/nation/R">Nation, Direction Château de Vincennes</option>
+                <option value="metros/1/bastille/A">Bastille, Direction La Défense</option>
+                <option value="metros/1/bastille/R">Bastille, Direction Château de Vincennes</option>
+                <option value="metros/1/hotel+de+ville/A">Hôtel de Ville, Direction La Défense</option>
+                <option value="metros/1/hotel+de+ville/R">Hôtel de Ville, Direction Château de Vincennes</option>
+                <option value="metros/1/chatelet/A">Châtelet, Direction La Défense</option>
+                <option value="metros/1/chatelet/R">Châtelet, Direction Château de Vincennes</option>
+                <option value="metros/1/palais+royal+(musee+du+louvre)/A">Palais-Royal (Musee du Louvre), Direction La Défense</option>
+                <option value="metros/1/palais+royal+(musee+du+louvre)/R">Palais-Royal (Musee du Louvre), Direction Château de Vincennes</option>
+                <option value="metros/1/champs+elysees+clemenceau/A">Champs-Elysees-Clemenceau, Direction La Défense</option>
+                <option value="metros/1/champs+elysees+clemenceau/R">Champs-Elysees-Clemenceau, Direction Château de Vincennes</option>
+
             </select>
         </div>
+        <div class="dialog-buttons">
+            <button id="butAddCity" class="button">Add</button>
+            <button id="butAddCancel" class="button">Cancel</button>
+        </div>
     </div>
-</script>
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/underscore.min.js"></script>
-<script src="js/pouchDB.js"></script>
-<script src="js/main.js"></script>
+</div>
+
+<div class="loader">
+    <svg viewBox="0 0 32 32" width="32" height="32">
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg>
+</div>
+
+<!-- Uncomment the line below when ready to test with fake data -->
+<script src="js/main.js" async></script>
+
 </body>
+
 </html>
