@@ -130,6 +130,7 @@
                         app.updateTimetableCard(results);
                     });
                 }
+                window.APILoadTime = performance.now();
             });
         }
 
@@ -221,6 +222,9 @@
                 {key: initialStationTimetable.key, label: initialStationTimetable.label}
             ];
             app.saveSelectedTimetables();
+            app.selectedTimetables.forEach(function (timetable) {
+                app.getSchedule(timetable.key, timetable.label);
+            });
         }
     };
 
@@ -246,7 +250,7 @@
     }
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then(function () {
+        navigator.serviceWorker.register('/sw.js').then(function () {
             console.log("Service Worker Registered");
         });
     }
